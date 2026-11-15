@@ -1,0 +1,4 @@
+---
+- name: Reject unimplemented adapter
+  ansible.builtin.fail:
+    msg: "platform_debian is planned for a future release"

@@ -1,0 +1,12 @@
+---
+- name: Configure development workstation
+  hosts: localhost
+  become: false
+  gather_facts: true
+  roles:
+    - preflight
+    - platform_macos
+    - workstation
+    - containers
+    - devbox
+    - dotfiles

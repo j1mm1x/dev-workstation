@@ -1,0 +1,16 @@
+---
+- name: Require supported host and scaffold configuration
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.system == 'Darwin'
+      - ansible_facts.architecture == 'arm64'
+      - workstation.schema_version == 1
+      - workstation.packages == []
+      - workstation.containers.provider == 'colima'
+      - workstation.containers.enabled == false
+      - workstation.devbox.enabled == false
+      - workstation.dotfiles.enabled == false
+      - workstation.safety.allow_privileged == false
+      - workstation.safety.allow_runtime_replacement == false
+      - workstation.safety.allow_dotfile_overwrite == false
+    fail_msg: This scaffold supports validation only. Feature implementation follows in subsequent milestones.

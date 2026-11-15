@@ -1,0 +1,4 @@
+---
+- name: Report devbox scaffold
+  ansible.builtin.debug:
+    msg: "devbox implementation pending; no host changes requested"

@@ -1,0 +1,14 @@
+workstation:
+  schema_version: 1
+  packages: []
+  containers:
+    provider: colima
+    enabled: false
+  devbox:
+    enabled: false
+  dotfiles:
+    enabled: false
+  safety:
+    allow_privileged: false
+    allow_runtime_replacement: false
+    allow_dotfile_overwrite: false

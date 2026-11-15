@@ -1,0 +1,4 @@
+---
+- name: Report containers scaffold
+  ansible.builtin.debug:
+    msg: "containers implementation pending; no host changes requested"

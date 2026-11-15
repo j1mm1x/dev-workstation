@@ -1,0 +1,4 @@
+---
+- name: Report platform_macos scaffold
+  ansible.builtin.debug:
+    msg: "platform_macos implementation pending; no host changes requested"

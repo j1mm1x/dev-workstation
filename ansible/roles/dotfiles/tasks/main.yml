@@ -1,0 +1,4 @@
+---
+- name: Report dotfiles scaffold
+  ansible.builtin.debug:
+    msg: "dotfiles implementation pending; no host changes requested"
