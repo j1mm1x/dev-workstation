@@ -1,0 +1,6 @@
+config/workstation.yml
+.venv/
+.env
+*.pem
+*.key
+__pycache__/
