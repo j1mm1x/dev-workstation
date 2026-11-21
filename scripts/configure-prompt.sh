@@ -37,7 +37,7 @@ if [[ -e "$shell_file" ]]; then
     echo 'Missing Oh My Zsh setup; configure it before using this installer.'
     exit 1
   fi
-  if ! grep -Eq 'ZSH_THEME=["\x27]agnoster["\x27]' "$shell_file"; then
+  if ! grep -Fq 'ZSH_THEME="agnoster"' "$shell_file"; then
     echo 'Set ZSH_THEME="agnoster" in .zshrc before installing.'
     exit 1
   fi
