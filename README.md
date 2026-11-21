@@ -4,7 +4,7 @@ An Ansible-first workstation framework for `j1mm1x/dev-workstation`. Task 001 es
 
 ## Terminal target
 
-The workstation runs directly on the user's Mac. The intended toolset includes kubectl, Docker CLI, Docker Compose, Colima, Devbox and fzf, with Zsh configured through Oh My Zsh. Colima provides an optional local container runtime. Docker CLI may connect to an existing remote engine.
+The workstation runs directly on the user's Mac. The intended toolset includes kubectl, Docker CLI, Docker Compose, Colima, cloudflared, Devbox and fzf, with Zsh configured through Oh My Zsh. Colima provides an optional local container runtime. Docker CLI may connect to an existing remote engine.
 
 The shell milestone will install a managed configuration fragment and show the proposed `.zshrc` integration before applying it. Existing aliases, prompt settings and shell files must be preserved. Changes to existing files require a verified backup and explicit approval. The selected Oh My Zsh theme is `agnoster`. Plugins remain to be selected. Credentials and Kubernetes or Docker authentication remain outside the repository.
 
@@ -12,13 +12,15 @@ Task 001 records this target. The example retains disabled features until their 
 
 ## Run
 
-Run `./bootstrap.sh` to preview the workstation package plan. Run `./bootstrap.sh --apply` to install kubectl, Docker CLI, Docker Compose, Colima, Devbox and fzf using Homebrew for kubectl, Docker CLI, Docker Compose, Colima and fzf, and the official Jetify installer for Devbox. Ansible is optional for future configuration work. If Homebrew is missing, the bootstrap offers its official installer with explicit confirmation. Devbox installation also requests confirmation before invoking its installer. Devbox may require Nix setup before project environments can run.
+Run `./bootstrap.sh` to preview the workstation package plan. Run `./bootstrap.sh --apply` to install kubectl, Docker CLI, Docker Compose, Colima, cloudflared, Devbox and fzf using Homebrew for kubectl, Docker CLI, Docker Compose, Colima and fzf, and the official Jetify installer for Devbox. Ansible is optional for future configuration work. If Homebrew is missing, the bootstrap offers its official installer with explicit confirmation. Devbox installation also requests confirmation before invoking its installer. Devbox may require Nix setup before project environments can run.
 
 The apply step also clones Oh My Zsh from its upstream default branch when absent. Run `./bootstrap.sh --configure-shell` to back up an existing `.zshrc` and append Agnoster configuration with the `git` plugin. Existing Oh My Zsh configuration and `.zshrc` symlinks require manual review. Choose a Powerline-compatible font in your terminal for Agnoster symbols. Font installation and selection are manual.
 
 Run `./bootstrap.sh --check-containers` to report the current Docker context, whether its engine is reachable, and whether the default Colima profile is running. The check leaves startup and context selection to you. If `DOCKER_HOST` overrides the endpoint, the check reports that override without displaying its value.
 
 Homebrew provides the `docker-compose` command. After starting Colima, use `docker --context colima info` to verify engine access and `docker-compose version` to check Compose.
+
+The bootstrap installs the Cloudflare Tunnel connector. Tunnel credentials and service setup belong on the host running the tunnel. Use `cloudflared --version` to verify installation.
 
 ## Layout
 

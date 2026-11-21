@@ -69,7 +69,7 @@ SHELL_CONFIG
   echo 'Agnoster configured. Open a new terminal session.'
   exit 0
 fi
-printf '%s\n' 'Workstation package plan: kubectl, docker (CLI), docker-compose, colima, devbox, fzf.'
+printf '%s\n' 'Workstation package plan: kubectl, docker (CLI), docker-compose, colima, cloudflared, devbox, fzf.'
 if [[ "${1:-}" != --apply ]]; then
   echo 'Run ./bootstrap.sh --apply to install these tools with Homebrew setup if needed.'
   echo 'Oh My Zsh with Agnoster requires a separate shell configuration step.'
@@ -93,7 +93,7 @@ if [[ -z "$brew_bin" ]]; then
   [[ -x "$brew_bin" ]] || { echo 'Homebrew installation did not complete.' >&2; exit 1; }
 fi
 eval "$("$brew_bin" shellenv)"
-"$brew_bin" install kubectl docker docker-compose colima fzf
+"$brew_bin" install kubectl docker docker-compose colima cloudflared fzf
 if ! command -v devbox >/dev/null; then
   echo 'Devbox uses the official Jetify installer, which may request administrator access.'
   read -r -p 'Run the official Devbox installer? [y/N] ' consent
