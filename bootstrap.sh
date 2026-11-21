@@ -1,9 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 case "${1:-}" in
-  ''|--apply|--configure-shell) ;;
-  --help) echo 'Usage: ./bootstrap.sh [--apply|--configure-shell]'; exit 0 ;;
-  *) echo 'Usage: ./bootstrap.sh [--apply|--configure-shell]' >&2; exit 2 ;;
+  ''|--apply|--configure-shell|--check-containers) ;;
+  --help) echo 'Usage: ./bootstrap.sh [--apply|--configure-shell|--check-containers]'; exit 0 ;;
+  *) echo 'Usage: ./bootstrap.sh [--apply|--configure-shell|--check-containers]' >&2; exit 2 ;;
 esac
 [[ $# -le 1 ]] || exit 2
 [[ "$(id -u)" != 0 ]] || { echo 'Run as an ordinary user' >&2; exit 1; }
@@ -11,6 +11,36 @@ esac
   echo 'This bootstrap requires native Apple Silicon macOS.' >&2
   exit 1
 }
+if [[ "${1:-}" == --check-containers ]]; then
+  if command -v docker >/dev/null; then
+    if docker_context=$(docker context show 2>/dev/null); then
+      printf 'Docker context: %s\n' "$docker_context"
+    else
+      echo 'Docker context: unavailable'
+    fi
+    if [[ -n ${DOCKER_HOST:-} && -z ${DOCKER_CONTEXT:-} ]]; then
+      echo 'Docker endpoint: overridden by DOCKER_HOST'
+    fi
+    if docker info --format '{{.ServerVersion}}' >/dev/null 2>&1; then
+      echo 'Docker engine: reachable'
+    else
+      echo 'Docker engine: unreachable'
+    fi
+  else
+    echo 'Docker CLI: missing'
+  fi
+
+  if ! command -v colima >/dev/null; then
+    echo 'Colima: missing'
+  elif [[ ! -d "${COLIMA_HOME:-$HOME/.colima}/default" ]]; then
+    echo 'Colima (default profile): not configured'
+  elif colima status --profile default >/dev/null 2>&1; then
+    echo 'Colima (default profile): running'
+  else
+    echo 'Colima (default profile): not running or status unavailable'
+  fi
+  exit 0
+fi
 if [[ "${1:-}" == --configure-shell ]]; then
   shell_file="${ZDOTDIR:-$HOME}/.zshrc"
   [[ ! -L "$shell_file" ]] || { echo 'Review the existing .zshrc symlink manually.' >&2; exit 1; }

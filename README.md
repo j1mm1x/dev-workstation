@@ -16,6 +16,8 @@ Run `./bootstrap.sh` to preview the workstation package plan. Run `./bootstrap.s
 
 The apply step also clones Oh My Zsh from its upstream default branch when absent. Run `./bootstrap.sh --configure-shell` to back up an existing `.zshrc` and append Agnoster configuration with the `git` plugin. Existing Oh My Zsh configuration and `.zshrc` symlinks require manual review. Choose a Powerline-compatible font in your terminal for Agnoster symbols. Font installation and selection are manual.
 
+Run `./bootstrap.sh --check-containers` to report the current Docker context, whether its engine is reachable, and whether the default Colima profile is running. The check leaves startup and context selection to you. If `DOCKER_HOST` overrides the endpoint, the check reports that override without displaying its value.
+
 ## Layout
 
 - `bootstrap.sh` detects OS and architecture and invokes Ansible.
